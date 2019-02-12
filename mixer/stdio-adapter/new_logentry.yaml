@@ -1,0 +1,41 @@
+# logentry（日志条目）的 instance 配置
+apiVersion: "config.istio.io/v1alpha2"
+kind: logentry
+metadata:
+  name: newlog
+  namespace: istio-system
+spec:
+  severity: '"warning"'
+  timestamp: request.time
+  variables:
+    source: source.labels["app"] | source.service | "unknown"
+    user: source.user | "unknown"
+    destination: destination.labels["app"] | destination.service | "unknown"
+    responseCode: response.code | 0
+    responseSize: response.size | 0
+    latency: response.duration | "0ms"
+  monitored_resource_type: '"UNSPECIFIED"'
+---
+# stdio（标准输入输出）handler 的配置
+apiVersion: "config.istio.io/v1alpha2"
+kind: stdio
+metadata:
+  name: newhandler
+  namespace: istio-system
+spec:
+ severity_levels:
+   warning: 1 # Params.Level.WARNING
+ outputAsJson: true
+---
+# 将 logentry instance 发送到 stdio 的 rule 对象配置
+apiVersion: "config.istio.io/v1alpha2"
+kind: rule
+metadata:
+  name: newlogstdio
+  namespace: istio-system
+spec:
+  match: "true" # 匹配所有请求
+  actions:
+   - handler: newhandler.stdio
+     instances:
+     - newlog.logentry

@@ -1,0 +1,55 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: istio-zipkin
+  namespace: istio-system
+  labels:
+    app: zipkin
+    chart: tracing-1.1.0
+    release: istio
+    heritage: Tiller
+spec:
+  template:
+    metadata:
+      labels:
+        app: zipkin
+        release: istio
+    spec:
+      containers:
+        - name: tracing
+          image: "docker.io/openzipkin/zipkin:2"
+          ports:
+            - containerPort: 9411
+          livenessProbe:
+            initialDelaySeconds: 200
+            tcpSocket:
+              port: 9411
+          readinessProbe:
+            initialDelaySeconds: 200
+            httpGet:
+              path: /health
+              port: 9411
+          resources:
+            limits:
+              cpu: 300m
+              memory: 900Mi
+            requests:
+              cpu: 150m
+              memory: 900Mi
+            
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: QUERY_PORT
+              value: "9411"
+            - name: JAVA_OPTS
+              value: "-XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2 -Xms700M -Xmx700M -XX:+UseG1GC -server"
+            - name: STORAGE_METHOD
+              value: "mem"
+            - name: ZIPKIN_STORAGE_MEM_MAXSPANS
+              value: "500000"
+

@@ -1,0 +1,46 @@
+# 指标 instance 的配置
+apiVersion: "config.istio.io/v1alpha2"
+kind: metric
+metadata:
+  name: myrequestcount
+  namespace: istio-system
+spec:
+  value: "1" # 每次请求计数加一
+  dimensions:
+    source_app: source.labels["app"] | "unknown"
+    source_version: source.labels["version"] | "unknown"
+    destination_app: destination.labels["app"] | "unknown"
+    destination_version: destination.labels["version"] | "unknown"
+    response_code: response.code | 200
+  monitored_resource_type: '"UNSPECIFIED"'
+---
+# prometheus handler 的配置
+apiVersion: "config.istio.io/v1alpha2"
+kind: prometheus
+metadata:
+  name: myrequestcounthandler
+  namespace: istio-system
+spec:
+  metrics:
+  - name: my_request_count # Prometheus 指标名称
+    instance_name: myrequestcount.metric.istio-system # Mixer Instance 名称（全限定名称）
+    kind: COUNTER
+    label_names:
+    - source_app
+    - source_version
+    - destination_app
+    - destination_version
+    - response_code
+---
+# 将指标 Instance 发送给 prometheus handler 的 rule 对象
+apiVersion: "config.istio.io/v1alpha2"
+kind: rule
+metadata:
+  name: myrequestcountrule
+  namespace: istio-system
+spec:
+  actions:
+  - handler: myrequestcounthandler.prometheus
+    instances:
+    - myrequestcount.metric
+---
