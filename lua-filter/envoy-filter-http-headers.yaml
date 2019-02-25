@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: custom-http-header-filter
+spec:
+  filters:
+  - listenerMatch:
+      listenerType: SIDECAR_OUTBOUND
+    filterType: HTTP
+    filterName: envoy.lua
+    filterConfig:
+      inlineCode: |
+        -- 在请求路径上被调用
+        function envoy_on_request(request_handle)
+          -- 添加一个自定义的请求头
+          request_handle:headers():add("mykey", "myvalue")
+        end
+        -- 在响应路径上被调用
+        function envoy_on_response(response_handle)
+          body_size = response_handle:body():length()
+          -- 等待整个响应正文并添加一个请求头和正文的大小
+          response_handle:headers():add("response-body-size", tostring(body_size))
+          -- 移除一个名为 'x-powered-by' 的响应头
+          response_handle:headers():remove("x-powered-by")
+        end
+          
