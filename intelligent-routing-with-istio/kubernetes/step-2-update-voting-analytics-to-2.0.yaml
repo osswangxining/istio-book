@@ -1,0 +1,31 @@
+# voting-analytics-deployment-1.1.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-analytics-2-0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-analytics
+      version: "2.0"
+  template:
+    metadata:
+      labels:
+        app: voting-analytics
+        version: "2.0"
+    spec:
+      containers:
+      - name: voting-analytics
+        image: osswangxining/voting-analytics:2.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: REDIS_HOST
+          value: "voting-storage"
+        - name: VOTE1VALUE
+          value: "Istio"  
+        - name: VOTE2VALUE
+          value: "其他"    

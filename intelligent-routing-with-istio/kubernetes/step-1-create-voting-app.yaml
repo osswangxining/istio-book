@@ -1,0 +1,137 @@
+# voting-storage-deployment-1.0.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-storage-1-0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-storage
+      version: "1.0"
+  template:
+    metadata:
+      labels:
+        app: voting-storage
+        version: "1.0"
+    spec:
+      containers:
+      - name: voting-storage
+        image: redis:4.0.10
+        ports:
+        - containerPort: 6379
+          name: redis
+---
+# voting-storage-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-storage
+  labels: 
+    app: voting-storage
+spec:
+  ports:
+  - port: 6379
+    name: redis
+  selector:
+    app: voting-storage
+---
+# voting-analytics-deployment-1.0.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-analytics-1-0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-analytics
+      version: "1.0"
+  template:
+    metadata:
+      labels:
+        app: voting-analytics
+        version: "1.0"
+    spec:
+      containers:
+      - name: voting-analytics
+        image: osswangxining/voting-analytics:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: REDIS_HOST
+          value: "voting-storage"
+        - name: VOTE1VALUE
+          value: "Istio"  
+        - name: VOTE2VALUE
+          value: "其他"      
+---
+# voting-analytics-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-analytics
+  labels: 
+    app: voting-analytics
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: voting-analytics
+---
+# voting-app-deployment-1.0.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-app-1-0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-app
+      version: "1.0"
+  template:
+    metadata:
+      labels:
+        app: voting-app
+        version: "1.0"
+    spec:
+      containers:
+      - name: voting-app
+        image: osswangxining/voting-app:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: TITLE
+          value: "投票示例应用：对于Istio和其他的服务网格你更喜欢哪个？"
+        - name: VOTE1VALUE
+          value: "Istio"  
+        - name: VOTE2VALUE
+          value: "其他"    
+        - name: SHOWDETAILS
+          value: "true"  
+        - name: FEATUREFLAG
+          value: "true"
+        - name: REDIS_HOST
+          value: "voting-storage"
+        - name: ANALYTICS_HOST
+          value: "voting-analytics"
+---
+# voting-app-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-app
+  labels: 
+    app: voting-app
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: voting-app

@@ -1,0 +1,47 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: voting-analytics
+spec:
+  host: voting-analytics.voting.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+  subsets:
+  - name: v1-0
+    labels:
+      app: voting-analytics
+      version: "1.0"
+  - name: v2-0
+    labels:
+      app: voting-analytics
+      version: "2.0"
+---
+# voting-analytics-virtualservice-1.1-and-2.0.yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: voting-analytics
+spec:
+  hosts:
+  - voting-analytics.voting.svc.cluster.local
+  http:
+  - match:
+    - sourceLabels:
+        app: voting-app
+        version: "1.0"
+    route:
+    - destination:
+        host: voting-analytics.voting.svc.cluster.local
+        port:
+          number: 8080
+  - match:
+    - sourceLabels:
+        app: voting-app
+        version: "2.0"
+    route:
+    - destination:
+        host: voting-analytics.voting.svc.cluster.local
+        subset: v2-0
+        port:
+          number: 8080

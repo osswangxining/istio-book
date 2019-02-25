@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-app-2-0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-app
+      version: "2.0"
+  template:
+    metadata:
+      labels:
+        app: voting-app
+        version: "2.0"
+    spec:
+      containers:
+      - name: voting-app
+        image: osswangxining/voting-app:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: TITLE
+          value: "投票示例应用：对于Istio和其他的服务网格你更喜欢哪个？"
+        - name: VOTE1VALUE
+          value: "Istio"  
+        - name: VOTE2VALUE
+          value: "其他"    
+        - name: SHOWDETAILS
+          value: "false"  
+        - name: FEATUREFLAG
+          value: "false"
+        - name: REDIS_HOST
+          value: "voting-storage"
+        - name: ANALYTICS_HOST
+          value: "voting-analytics"
