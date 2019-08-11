@@ -1,0 +1,57 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            eb:c5:9d:0c:7f:5a:e2:8f
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=CN, ST=Beijing, L=Beijing, O=Istio, OU=Test, CN=Istio CA/emailAddress=caroot@istio.io
+        Validity
+            Not Before: Jan  9 09:33:45 2019 GMT
+            Not After : Jan  6 09:33:45 2029 GMT
+        Subject: C=CN, ST=Beijing, L=Beijing, O=Istio, OU=Test, CN=Istio CA/emailAddress=caroot@istio.io
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:b2:38:de:a6:46:29:77:ef:0d:c1:89:2c:f2:01:
+                    58:7d:bd:c0:b4:e3:94:8d:28:b4:43:29:2a:82:29:
+                    4b:96:a9:52:c9:e4:07:3f:ae:35:75:41:ba:9c:6c:
+                    01:fc:1a:c8:b1:50:e0:40:9f:4b:3b:a0:cf:a5:9f:
+                    f5:13:25:50:f6:39:db:1e:ee:89:dd:29:bc:6b:d3:
+                    3a:df:6a:93:15:29:4d:b5:27:e3:af:d3:60:2d:6b:
+                    77:5a:f2:92:0d:da:89:64:e3:a4:de:38:ed:3f:d0:
+                    e0:28:1d:bd:19:12:4d:fa:6b:c6:2b:d4:aa:fb:6a:
+                    42:b4:29:91:99:49:42:17:3f:8b:b9:14:3e:b2:21:
+                    95:b9:36:3d:c3:04:01:b2:62:cc:10:8a:5e:f2:7e:
+                    0b:bf:3f:44:24:6a:d1:b4:61:78:d9:e0:82:7c:3b:
+                    e0:49:be:5c:f2:b5:15:31:c7:e3:5b:25:80:d9:63:
+                    50:71:72:44:8c:8f:e0:ab:06:cd:bb:76:bf:37:44:
+                    0a:6a:05:a5:59:29:55:3b:4e:ea:3d:6f:68:a7:36:
+                    bd:2f:a8:b6:a7:10:3e:31:a8:df:5a:a4:e2:b3:02:
+                    58:07:8d:5b:05:37:2f:92:6e:7b:89:7f:df:dc:ef:
+                    c3:48:47:00:82:89:e9:d3:98:12:2f:b8:4c:9f:2c:
+                    23:93
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Key Usage: 
+                Certificate Sign
+            X509v3 Basic Constraints: 
+                CA:TRUE
+            X509v3 Subject Alternative Name: 
+                DNS:ca.istio.io
+    Signature Algorithm: sha256WithRSAEncryption
+         5b:7d:a6:27:c0:3e:1a:6b:eb:75:96:95:eb:38:aa:92:b1:0d:
+         b9:0b:26:cf:d2:1e:e0:14:69:78:44:d1:c8:c9:12:9d:40:d0:
+         70:5e:7a:1f:8c:f2:a8:f7:71:0c:b3:e4:1d:75:96:e0:6f:7f:
+         49:f0:2d:e9:92:3b:d6:07:de:12:e3:dc:84:92:61:33:a8:ea:
+         b4:8a:9a:4c:57:15:57:9e:b9:d5:db:41:ad:6e:7d:22:c5:c4:
+         46:b2:b5:55:b6:d1:f8:2e:f5:2d:c6:01:4a:12:ef:91:e3:59:
+         a3:98:ff:60:8e:75:5a:6d:01:ff:9c:94:ec:11:34:ab:fc:de:
+         93:a1:52:10:11:61:25:8a:7b:94:3a:b4:b7:21:df:fb:6b:6d:
+         b6:e5:9d:93:85:66:6b:cd:fa:e6:d7:75:e2:27:3c:94:91:6e:
+         05:f6:e2:df:db:8d:b7:5d:f4:d0:13:f0:2c:d3:94:02:d3:71:
+         d4:42:41:d6:ab:29:80:7c:c1:75:6d:7e:5f:68:ef:e9:82:07:
+         0b:54:ba:9f:24:be:4c:d9:50:16:b8:18:55:99:14:a4:70:e3:
+         76:ac:e9:ad:07:12:50:5c:b0:e2:cb:f3:b2:21:6f:c8:67:49:
+         11:fd:d2:e0:f3:98:9d:b5:1c:e8:35:2e:d3:a3:3c:89:ea:c5:
+         8f:83:00:99
