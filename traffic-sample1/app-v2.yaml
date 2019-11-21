@@ -1,0 +1,135 @@
+
+##################################################################################################
+# service1
+##################################################################################################
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service1-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service1
+        version: v2
+    spec:
+      containers:
+      - name: service1
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service1"
+        - name: serviceName
+          value: "service2.servicedependency"  
+        ports:
+        - containerPort: 5678
+---
+##################################################################################################
+# service2
+##################################################################################################
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service2-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service2
+        version: v2
+    spec:
+      containers:
+      - name: service2
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service2"
+        - name: serviceName
+          value: "service3.servicedependency"  
+        ports:
+        - containerPort: 5678
+---
+##################################################################################################
+# service3
+##################################################################################################
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service3-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service3
+        version: v2
+    spec:
+      containers:
+      - name: service3
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service3"
+        - name: serviceName
+          value: "service4.servicedependency"  
+        ports:
+        - containerPort: 5678       
+---
+##################################################################################################
+# service4
+##################################################################################################
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service4-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service4
+        version: v2
+    spec:
+      containers:
+      - name: service4
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service4"
+        - name: serviceName
+          value: "service5.servicedependency"  
+        ports:
+        - containerPort: 5678        
+---
+##################################################################################################
+# service5
+##################################################################################################
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service5-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service5
+        version: v2
+    spec:
+      containers:
+      - name: service5
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service5"
+        ports:
+        - containerPort: 5678                         

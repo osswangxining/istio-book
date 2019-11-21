@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mirrorservice-sample-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mirrorservice-sample
+        version: v2
+    spec:
+      containers:
+      - name: mirrorservice-sample
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:diffy
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 44134
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mirrorservice-sample-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mirrorservice-sample
+        version: v1
+    spec:
+      containers:
+      - image: docker.io/kennethreitz/httpbin
+        imagePullPolicy: IfNotPresent
+        name: mirrorservice-sample
+        command: ["gunicorn", "--access-logfile", "-", "-b", "0.0.0.0:44134", "httpbin:app"]
+        ports:
+        - containerPort: 44134        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mirrorservice-sample
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 44134
+  selector:
+    app: mirrorservice-sample

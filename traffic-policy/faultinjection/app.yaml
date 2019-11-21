@@ -1,0 +1,59 @@
+##################################################################################################
+# httpbin service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin
+  labels:
+    app: httpbin
+spec:
+  ports:
+  - name: http
+    port: 5678
+  selector:
+    app: httpbin
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: httpbin-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v1
+    spec:
+      containers:
+      - image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:lb
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        env:
+        - name: myself
+          value: "service-v1"
+        ports:
+        - containerPort: 5678
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: httpbin-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v2
+    spec:
+      containers:
+      - image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:lb
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        env:
+        - name: myself
+          value: "service-v2"
+        ports:
+        - containerPort: 5678

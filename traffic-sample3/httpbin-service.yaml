@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: httpbin-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v1
+      annotations:
+        sidecar.istio.io/inject: "true"    
+    spec:
+      containers:
+      - image: docker.io/kennethreitz/httpbin
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        command: ["gunicorn", "--access-logfile", "-", "-b", "0.0.0.0:8080", "httpbin:app"]
+        ports:
+        - containerPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: httpbin-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: httpbin
+        version: v2
+      annotations:
+        sidecar.istio.io/inject: "true"   
+    spec:
+      containers:
+      - image: docker.io/kennethreitz/httpbin
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        command: ["gunicorn", "--access-logfile", "-", "-b", "0.0.0.0:8080", "httpbin:app"]
+        ports:
+        - containerPort: 8080        
+---        
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin-master
+  labels:
+    app: httpbin-master
+spec:
+  ports:
+  - name: http
+    port: 8080
+  selector:
+    app: httpbin
+    version: v1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin-candidate
+  labels:
+    app: httpbin-candidate
+spec:
+  ports:
+  - name: http
+    port: 8080
+  selector:
+    app: httpbin
+    version: v2

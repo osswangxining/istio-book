@@ -1,0 +1,90 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service1
+spec:
+  hosts:
+  - service1
+  http:
+  - route:
+    - destination:
+        host: service1
+        subset: v1
+      weight: 100
+    - destination:
+        host: service1
+        subset: v2
+      weight: 0  
+---  
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service2
+spec:
+  hosts:
+  - service2
+  http:
+  - route:
+    - destination:
+        host: service2
+        subset: v1
+      weight: 100
+    - destination:
+        host: service2
+        subset: v2
+      weight: 0    
+---  
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service3
+spec:
+  hosts:
+  - service3
+  http:
+  - route:
+    - destination:
+        host: service3
+        subset: v1
+      weight: 100
+    - destination:
+        host: service3
+        subset: v2
+      weight: 0    
+---  
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service4
+spec:
+  hosts:
+  - service4
+  http:
+  - route:
+    - destination:
+        host: service4
+        subset: v1
+      weight: 100
+    - destination:
+        host: service4
+        subset: v2
+      weight: 0    
+---  
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service5
+spec:
+  hosts:
+  - service5
+  http:
+  - route:
+    - destination:
+        host: service5
+        subset: v1
+      weight: 100
+    - destination:
+        host: service5
+        subset: v2
+      weight: 0    
+---  

@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpbin-diffy
+  labels:
+    app: httpbin-diffy
+spec:
+  ports:
+  - name: http-proxy
+    port: 8880
+  - name: http-admin
+    port: 8881
+  - name: http-console
+    port: 8888    
+  selector:
+    app: httpbin-diffy
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: httpbin-diffy
+    version: v2
+  name: httpbin-diffy-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpbin-diffy
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: httpbin-diffy
+        version: v2
+      annotations:
+        sidecar.istio.io/inject: "true"    
+    spec:
+      containers:
+      - image: diffy/diffy
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - curl
+            - localhost:8888
+          initialDelaySeconds: 10
+          periodSeconds: 60
+          timeoutSeconds: 1
+        name: httpbin-diffy
+        args: ["-candidate=httpbin-candidate:8080", "-master.primary=httpbin-master:8080", "-master.secondary=httpbin-master:8080", "-service.protocol=http", "-serviceName=httpbin", "-proxy.port=:8880", "-admin.port=:8881", "-http.port=:8888", "-rootUrl='localhost:8888'"]
+        ports:
+        - containerPort: 8888
+          name: http-console
+          protocol: TCP
+        - containerPort: 8880
+          name: http-proxy
+          protocol: TCP
+        - containerPort: 8881
+          name: http-admin
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - curl
+            - localhost:8888
+          initialDelaySeconds: 10
+          periodSeconds: 60
+          timeoutSeconds: 1
+        securityContext:
+          privileged: false

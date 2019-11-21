@@ -1,0 +1,199 @@
+
+##################################################################################################
+# service1
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+  labels:
+    app: service1
+spec:
+  ports:
+  - port: 5678
+    name: http
+  selector:
+    app: service1
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service1-v1
+spec:
+  
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service1
+        version: v1
+    spec:
+      containers:
+      - name: service1
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service1"
+        - name: serviceName
+          value: "service2.servicedependency"  
+        ports:
+        - containerPort: 5678
+---
+##################################################################################################
+# service2
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: service2
+  labels:
+    app: service2
+spec:
+  ports:
+  - port: 5678
+    name: http
+  selector:
+    app: service2
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service2-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service2
+        version: v1
+    spec:
+      containers:
+      - name: service2
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service2"
+        - name: serviceName
+          value: "service3.servicedependency"  
+        ports:
+        - containerPort: 5678
+---
+##################################################################################################
+# service3
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: service3
+  labels:
+    app: service3
+spec:
+  ports:
+  - port: 5678
+    name: http
+  selector:
+    app: service3
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service3-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service3
+        version: v1
+    spec:
+      containers:
+      - name: service3
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service3"
+        - name: serviceName
+          value: "service4.servicedependency"  
+        ports:
+        - containerPort: 5678       
+---
+##################################################################################################
+# service4
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: service4
+  labels:
+    app: service4
+spec:
+  ports:
+  - port: 5678
+    name: http
+  selector:
+    app: service4
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service4-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service4
+        version: v1
+    spec:
+      containers:
+      - name: service4
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service4"
+        - name: serviceName
+          value: "service5.servicedependency"  
+        ports:
+        - containerPort: 5678        
+---
+##################################################################################################
+# service5
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: service5
+  labels:
+    app: service5
+spec:
+  ports:
+  - port: 5678
+    name: http
+  selector:
+    app: service5
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service5-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service5
+        version: v1
+    spec:
+      containers:
+      - name: service5
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service5"
+        ports:
+        - containerPort: 5678                         

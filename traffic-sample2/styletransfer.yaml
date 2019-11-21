@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: styletransfer
+  namespace: styletransfer
+  labels:
+    app: styletransfer
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: styletransfer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: styletransfer-v1
+  namespace: styletransfer
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: styletransfer
+        version: v1
+    spec:
+      containers:
+      - name: details
+        image: registry.cn-hangzhou.aliyuncs.com/aliacs-app-catalog/istio-examples-styletransferui-v1:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80

@@ -1,0 +1,147 @@
+
+##################################################################################################
+# Details service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: details
+  labels:
+    app: details
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: details
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: details-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: details
+        version: v1
+    spec:
+      containers:
+      - name: details
+        image: registry.cn-hangzhou.aliyuncs.com/aliacs-app-catalog/istio-examples-details-v1:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+---
+##################################################################################################
+# Productpage services
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: productpage
+  labels:
+    app: productpage
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: productpage
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: productpage-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: productpage
+        version: v1
+    spec:
+      containers:
+      - name: productpage
+        image: registry.cn-hangzhou.aliyuncs.com/aliacs-app-catalog/istio-examples-productpage-v1:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+---
+##################################################################################################
+# AddedValues service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: addedvalues
+  labels:
+    app: addedvalues
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: addedvalues
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: addedvalues-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: addedvalues
+        version: v1
+    spec:
+      containers:
+      - name: addedvalues
+        image: registry.cn-hangzhou.aliyuncs.com/aliacs-app-catalog/istio-examples-addedvalues-v1:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: addedvalues-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: addedvalues
+        version: v2
+    spec:
+      containers:
+      - name: addedvalues
+        image: registry.cn-hangzhou.aliyuncs.com/aliacs-app-catalog/istio-examples-addedvalues-v2:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: addedvalues-v3
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: addedvalues
+        version: v3
+    spec:
+      containers:
+      - name: addedvalues
+        image: registry.cn-hangzhou.aliyuncs.com/aliacs-app-catalog/istio-examples-addedvalues-v3:1.0
+        imagePullPolicy: Always
+        env:
+        - name: STYLE_TRANSFER_URL
+          value: "http://101.37.178.225"
+        ports:
+        - containerPort: 9080
+---

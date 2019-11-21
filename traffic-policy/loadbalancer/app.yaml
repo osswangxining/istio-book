@@ -1,0 +1,37 @@
+##################################################################################################
+# service1
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+  labels:
+    app: service1
+spec:
+  ports:
+  - port: 5678
+    name: http
+  selector:
+    app: service1
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service1-v1
+spec: 
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: service1
+        version: v1
+    spec:
+      containers:
+      - name: service1
+        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:lb
+        imagePullPolicy: Always
+        env:
+        - name: myself
+          value: "service1"
+        ports:
+        - containerPort: 5678
