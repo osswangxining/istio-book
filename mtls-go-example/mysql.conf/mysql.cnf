@@ -1,0 +1,8 @@
+[mysqld]
+# Require clients to connect either using SSL
+# or through a local socket file
+require_secure_transport = ON
+ssl-ca=/etc/mysql/cert/ca.cert.pem
+ssl-cert=/etc/mysql/cert/mysql.a.com.cert.pem
+ssl-key=/etc/mysql/cert/mysql.a.com.key.pem
+bind-address = 0.0.0.0

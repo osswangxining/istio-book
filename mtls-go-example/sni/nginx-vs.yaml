@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: nginx
+spec:
+  hosts:
+  - nginx.example.com
+  - nginx.api.com
+  gateways:
+  - mygateway
+  tls:
+  - match:
+    - port: 443
+      sni_hosts:
+      - nginx.example.com
+    route:
+    - destination:
+        host: nginx
+        port:
+          number: 443
+  - match:
+    - port: 443
+      sni_hosts:
+      - nginx.api.com
+    route:
+    - destination:
+        host: nginx2
+        port:
+          number: 443

@@ -1,0 +1,1 @@
+V	290107023341Z		100212	unknown	/C=US/ST=Denial/O=Dis/CN=nginx.example.com

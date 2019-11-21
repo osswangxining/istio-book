@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mygateway
+spec:
+  selector:
+    istio: ingressgateway # 使用 Istio 默认的 Gateway
+  servers:
+  - port:
+      number: 443
+      name: https-httpbin
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-certs/tls.key
+    hosts:
+    - "httpbin.example.com"
+  - port:
+      number: 443
+      name: https-nginx
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      serverCertificate: /etc/istio/ingressgateway-nginx-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-nginx-certs/tls.key
+    hosts:
+    - "nginx.example.com"
