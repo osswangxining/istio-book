@@ -1,0 +1,1 @@
+kubectl exec $(kubectl get pod -l app=client -n authorizationsample -o jsonpath={.items..metadata.name}) -c client -n authorizationsample -- curl "http://server:8000/ip" -s -o /dev/null -w "client to server: %{http_code}\n"

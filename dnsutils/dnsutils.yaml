@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dnsutils
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dnsutils
+    spec:
+      containers:
+      - name: dnsutils
+        image: tutum/dnsutils
+        imagePullPolicy: IfNotPresent
+---

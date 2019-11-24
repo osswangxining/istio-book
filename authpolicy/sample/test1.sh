@@ -1,0 +1,1 @@
+for from in "ns1" "ns2" "nosidecar"; do for to in "ns1" "ns2" "nosidecar"; do kubectl exec $(kubectl get pod -l app=client -n ${from} -o jsonpath={.items..metadata.name}) -c client -n ${from} -- curl "http://server.${to}:8000/ip" -s -o /dev/null -w "client.${from} to server.${to}: %{http_code}\n"; done; done
