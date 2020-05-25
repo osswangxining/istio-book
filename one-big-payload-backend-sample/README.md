@@ -74,7 +74,7 @@ dd if=/dev/zero of=output.file bs=1024 count=10240
 curl -svo /dev/null -F 'file=@output.file' -H 'Cache-Control: no-cache' -H @bigheader.txt http://<ingressgateway-ipaddress>/scan 
 ```
 
-1. check the log from sample application. You should see as below.
+7. check the log from sample application. You should see as below.
 
 ```
 2020.05.25.11.52.15
