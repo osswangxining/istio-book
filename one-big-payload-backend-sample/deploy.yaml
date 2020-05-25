@@ -18,6 +18,7 @@ spec:
       containers:
       - name: bigpayloadtest
         image: registry.cn-beijing.aliyuncs.com/aliyun-asm/bigpayloadtest:v0.1
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 ---

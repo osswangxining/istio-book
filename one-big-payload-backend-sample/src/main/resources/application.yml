@@ -4,6 +4,7 @@ spring.http.multipart:
 
 server:
   port: 8080
+  max-http-header-size: 65536
 
 #TODO: figure out why I need this here and in bootstrap.yml
 spring:
