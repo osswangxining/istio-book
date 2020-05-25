@@ -68,12 +68,13 @@ dd if=/dev/zero of=output.file bs=1024 count=10240
 ```
 
 6. run the testing as below
+   make sure your curl version is above 7.55.0, then you can use -H @filename to add http headers as below.
 ```
 
 curl -svo /dev/null -F 'file=@output.file' -H 'Cache-Control: no-cache' -H @bigheader.txt http://<ingressgateway-ipaddress>/scan 
 ```
 
-7. check the log from sample application. You should see as below.
+1. check the log from sample application. You should see as below.
 
 ```
 2020.05.25.11.52.15
