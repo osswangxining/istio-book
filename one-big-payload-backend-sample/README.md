@@ -68,13 +68,16 @@ dd if=/dev/zero of=output.file bs=1024 count=10240
 ```
 
 6. run the testing as below
+   From [envoy official website](https://www.envoyproxy.io/docs/envoy/latest/api-v2/config/filter/network/http_connection_manager/v2/http_connection_manager.proto):
+   > The maximum request headers size for incoming connections. If unconfigured, the default max request headers allowed is 60 KiB. Requests that exceed this limit will receive a 431 response. The max configurable limit is 96 KiB, based on current implementation constraints..
+
    make sure your curl version is above 7.55.0, then you can use -H @filename to add http headers as below.
 ```
 
 curl -svo /dev/null -F 'file=@output.file' -H 'Cache-Control: no-cache' -H @bigheader.txt http://<ingressgateway-ipaddress>/scan 
 ```
 
-7. check the log from sample application. You should see as below.
+1. check the log from sample application. You should see as below.
 
 ```
 2020.05.25.11.52.15
