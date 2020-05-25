@@ -63,10 +63,14 @@
     ```
 
 5. create 10MB test file
+```
 dd if=/dev/zero of=output.file bs=1024 count=10240
+```
 
 6. run the testing as below
+```
 curl -svo /dev/null -F 'file=@output.file' -H 'Cache-Control: no-cache'  http://<ingressgateway-ipaddress>/scan 
+```
 
 7. check the log from sample application. You should see as below.
 
