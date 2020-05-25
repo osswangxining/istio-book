@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: service1
-        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        image: registry.cn-beijing.aliyuncs.com/istio-samples/mirrorservice:rev-dep-call
         imagePullPolicy: Always
         env:
         - name: myself
@@ -70,7 +70,7 @@ spec:
     spec:
       containers:
       - name: service2
-        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        image: registry.cn-beijing.aliyuncs.com/istio-samples/mirrorservice:rev-dep-call
         imagePullPolicy: Always
         env:
         - name: myself
@@ -110,7 +110,7 @@ spec:
     spec:
       containers:
       - name: service3
-        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        image: registry.cn-beijing.aliyuncs.com/istio-samples/mirrorservice:rev-dep-call
         imagePullPolicy: Always
         env:
         - name: myself
@@ -150,7 +150,7 @@ spec:
     spec:
       containers:
       - name: service4
-        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        image: registry.cn-beijing.aliyuncs.com/istio-samples/mirrorservice:rev-dep-call
         imagePullPolicy: Always
         env:
         - name: myself
@@ -190,7 +190,7 @@ spec:
     spec:
       containers:
       - name: service5
-        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:rev-dep-call
+        image: registry.cn-beijing.aliyuncs.com/istio-samples/mirrorservice:rev-dep-call
         imagePullPolicy: Always
         env:
         - name: myself

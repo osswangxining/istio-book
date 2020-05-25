@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: mirrorservice-sample
-        image: registry.cn-beijing.aliyuncs.com/wangxining/mirrorservice:diffy
+        image: registry.cn-beijing.aliyuncs.com/istio-samples/mirrorservice:0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 44134

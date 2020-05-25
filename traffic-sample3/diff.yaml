@@ -39,16 +39,8 @@ spec:
       containers:
       - image: diffy/diffy
         imagePullPolicy: IfNotPresent
-        livenessProbe:
-          exec:
-            command:
-            - curl
-            - localhost:8888
-          initialDelaySeconds: 10
-          periodSeconds: 60
-          timeoutSeconds: 1
         name: httpbin-diffy
-        args: ["-candidate=httpbin-candidate:8080", "-master.primary=httpbin-master:8080", "-master.secondary=httpbin-master:8080", "-service.protocol=http", "-serviceName=httpbin", "-proxy.port=:8880", "-admin.port=:8881", "-http.port=:8888", "-rootUrl='localhost:8888'"]
+        args: ["-candidate=httpbin-candidate:8080", "-master.primary=httpbin-master:8080", "-master.secondary=httpbin-master:8080", "-service.protocol=http", "-serviceName=httpbin", "-proxy.port=:8880", "-admin.port=:8881", "-http.port=:8888", "-rootUrl='localhost:8888'", -summary.email='isotope@diffy.ai']
         ports:
         - containerPort: 8888
           name: http-console
@@ -59,13 +51,5 @@ spec:
         - containerPort: 8881
           name: http-admin
           protocol: TCP
-        readinessProbe:
-          exec:
-            command:
-            - curl
-            - localhost:8888
-          initialDelaySeconds: 10
-          periodSeconds: 60
-          timeoutSeconds: 1
         securityContext:
           privileged: false
