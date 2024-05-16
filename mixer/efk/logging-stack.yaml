@@ -21,7 +21,7 @@ spec:
     app: elasticsearch
 ---
 # Elasticsearch Deployment
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: elasticsearch
@@ -31,6 +31,9 @@ metadata:
   annotations:
     sidecar.istio.io/inject: "false"
 spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
   template:
     metadata:
       labels:
@@ -84,7 +87,7 @@ spec:
     app: fluentd-es
 ---
 # Fluentd Deployment
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fluentd-es
@@ -94,6 +97,9 @@ metadata:
   annotations:
     sidecar.istio.io/inject: "false"
 spec:
+  selector:
+    matchLabels:
+      app: fluentd-es
   template:
     metadata:
       labels:
@@ -169,7 +175,7 @@ spec:
     app: kibana
 ---
 # Kibana Deployment
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kibana
@@ -179,6 +185,9 @@ metadata:
   annotations:
     sidecar.istio.io/inject: "false"
 spec:
+  selector:
+    matchLabels:
+      app: kibana
   template:
     metadata:
       labels:

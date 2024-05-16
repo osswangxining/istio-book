@@ -1,9 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mirrorservice-sample-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: mirrorservice-sample
+      version: v2
   template:
     metadata:
       labels:
@@ -17,12 +21,16 @@ spec:
         ports:
         - containerPort: 44134
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mirrorservice-sample-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: mirrorservice-sample
+      version: v1
   template:
     metadata:
       labels:

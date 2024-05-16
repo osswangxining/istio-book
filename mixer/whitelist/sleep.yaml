@@ -28,12 +28,16 @@ spec:
   selector:
     app: sleep
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sleep-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: sleep
+      version: v1
   template:
     metadata:
       labels:
@@ -47,12 +51,16 @@ spec:
         imagePullPolicy: IfNotPresent
 ---
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sleep-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: sleep
+      version: v2
   template:
     metadata:
       labels:
