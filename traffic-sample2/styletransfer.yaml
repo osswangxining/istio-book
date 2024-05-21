@@ -13,13 +13,17 @@ spec:
   selector:
     app: styletransfer
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: styletransfer-v1
   namespace: styletransfer
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: styletransfer
+      version: v1
   template:
     metadata:
       labels:

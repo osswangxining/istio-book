@@ -2,12 +2,16 @@
 ##################################################################################################
 # service1
 ##################################################################################################
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service1-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service1
+      version: v2
   template:
     metadata:
       labels:
@@ -29,12 +33,16 @@ spec:
 ##################################################################################################
 # service2
 ##################################################################################################
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service2-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service2
+      version: v2
   template:
     metadata:
       labels:
@@ -56,12 +64,16 @@ spec:
 ##################################################################################################
 # service3
 ##################################################################################################
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service3-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service3
+      version: v2
   template:
     metadata:
       labels:
@@ -84,12 +96,16 @@ spec:
 # service4
 ##################################################################################################
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service4-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service4
+      version: v2
   template:
     metadata:
       labels:
@@ -112,12 +128,16 @@ spec:
 # service5
 ##################################################################################################
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service5-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service5
+      version: v2
   template:
     metadata:
       labels:

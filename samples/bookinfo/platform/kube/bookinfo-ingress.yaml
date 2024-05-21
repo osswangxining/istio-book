@@ -15,7 +15,8 @@
 ###########################################################################
 # Ingress resource (gateway)
 ##########################################################################
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1beta1 # 1.21及之前版本可用
+# apiVersion: networking.k8s.io/v1 # 1.22及之后版本可用
 kind: Ingress
 metadata:
   name: gateway

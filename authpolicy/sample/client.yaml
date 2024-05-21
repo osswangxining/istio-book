@@ -11,12 +11,15 @@ spec:
   selector:
     app: client
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: client
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: client
   template:
     metadata:
       labels:

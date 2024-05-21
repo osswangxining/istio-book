@@ -15,13 +15,17 @@ spec:
   selector:
     app: service1
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service1-v1
 spec:
   
   replicas: 1
+  selector:
+    matchLabels:
+      app: service1
+      version: v1
   template:
     metadata:
       labels:
@@ -56,12 +60,16 @@ spec:
   selector:
     app: service2
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service2-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service2
+      version: v1
   template:
     metadata:
       labels:
@@ -96,12 +104,16 @@ spec:
   selector:
     app: service3
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service3-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service3
+      version: v1
   template:
     metadata:
       labels:
@@ -136,12 +148,16 @@ spec:
   selector:
     app: service4
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service4-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service4
+      version: v1
   template:
     metadata:
       labels:
@@ -176,12 +192,16 @@ spec:
   selector:
     app: service5
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service5-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service5
+      version: v1
   template:
     metadata:
       labels:
